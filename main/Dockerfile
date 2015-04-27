@@ -13,6 +13,10 @@ MAINTAINER Matt Drees <matt.drees@cru.org>
 USER root
 
 RUN yum -y install \
+  bind-utils \
+  netcat \
+  net-tools \
+  nmap \
   supervisor \
   syslog-ng \
   wget \

@@ -14,9 +14,12 @@ USER root
 
 RUN yum -y install \
   supervisor \
+  syslog-ng \
   && yum clean all;
 
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+COPY syslog-ng.conf /etc/syslog-ng/syslog-ng.conf
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

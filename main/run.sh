@@ -3,11 +3,12 @@
 
 
 # --env-file=work/development.txt \
-# --publish 8080:8080 \
 docker run \
  --interactive \
  --tty \
  --rm \
+ --publish 601:601 \
+ --publish 514:514/UDP \
  --name syslog-splunk-container \
  cruglobal/syslog-splunk \
  "$@"

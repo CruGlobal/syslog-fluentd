@@ -6,6 +6,6 @@ docker run \
  --interactive \
  --tty \
  --rm \
- syslog-splunk-tester \
+ cruglobal/syslog-splunk-tester \
  "$@"
 

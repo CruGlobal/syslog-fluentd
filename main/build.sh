@@ -1,5 +1,5 @@
 #!/bin/bash
 
 docker build \
- --tag syslog-splunk \
+ --tag cruglobal/syslog-splunk \
  .;

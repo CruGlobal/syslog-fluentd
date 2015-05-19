@@ -9,5 +9,5 @@ docker run \
  --tty \
  --rm \
  --name syslog-splunk-container \
- syslog-splunk \
+ cruglobal/syslog-splunk \
  "$@"

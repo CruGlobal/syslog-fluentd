@@ -1,16 +1,11 @@
-# re-using the jboss/bas layer, partly because yum update fails on boot2docker:
-# https://github.com/boot2docker/boot2docker/issues/459
-
-#FROM fedora:20
-FROM jboss/base
-
-
+FROM centos:latest
 MAINTAINER Matt Drees <matt.drees@cru.org>
 
-# Execute system update
-#RUN yum -y update && yum clean all
-
 USER root
+
+# epel repo is prereq for some packages below
+RUN yum -y install \
+  epel-release
 
 RUN yum -y install \
   bind-utils \
@@ -18,13 +13,32 @@ RUN yum -y install \
   net-tools \
   nmap \
   supervisor \
-  syslog-ng \
   wget \
+  # required to compile syslog-ng
+  gcc \
+  make \
+  logrotate \
+  eventlog \
+  eventlog-devel \
+  glib2-devel \
+  pcre-devel \
   && yum clean all;
+
+ENV SYSLOG_VERSION=3.6.4
+ENV SYSLOG_DOWNLOAD_URL="https://github.com/balabit/syslog-ng/releases/download/syslog-ng-${SYSLOG_VERSION}/syslog-ng-${SYSLOG_VERSION}.tar.gz"
+
+RUN curl -L "${SYSLOG_DOWNLOAD_URL}" > "syslog-ng-${SYSLOG_VERSION}.tar.gz" \
+    && tar zxf "syslog-ng-${SYSLOG_VERSION}.tar.gz" \
+    && cd "syslog-ng-${SYSLOG_VERSION}" \
+    && ./configure --prefix=/usr \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf "syslog-ng-${SYSLOG_VERSION}" "syslog-ng-${SYSLOG_VERSION}.tar.gz";
+
 
 ENV SPLUNK_VERSION=6.2.2
 ENV SPLUNK_VERSION_FULL=$SPLUNK_VERSION-255606-linux-2.6-x86_64
-
 
 RUN SPLUNK_RPM_FILE=splunkforwarder-$SPLUNK_VERSION_FULL.rpm \
     && wget -O $SPLUNK_RPM_FILE \
@@ -36,6 +50,7 @@ RUN SPLUNK_RPM_FILE=splunkforwarder-$SPLUNK_VERSION_FULL.rpm \
 WORKDIR /opt/splunkforwarder
 
 ENV PATH $PATH:/opt/splunkforwarder/bin
+ENV LD_LIBRARY_PATH=/usr/lib
 
 RUN splunk version --accept-license
 

@@ -4,7 +4,7 @@ echo "Host: $(hostname)";
 
 echo "IP: $(hostname -I)";
 
-TARGET=${1:-internal-syslog-splunk-staging-1258904703.us-east-1.elb.amazonaws.com}
+TARGET=${1:-syslog.uscm.org}
 
 echo "Target: $TARGET";
 

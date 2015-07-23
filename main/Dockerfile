@@ -56,7 +56,7 @@ RUN splunk version --accept-license
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY syslog-ng.conf /etc/syslog-ng/syslog-ng.conf
+COPY syslog-ng.conf /usr/etc/syslog-ng.conf
 
 COPY inputs.conf /opt/splunkforwarder/etc/apps/search/local/inputs.conf
 

@@ -3,11 +3,11 @@ MAINTAINER Matt Drees <matt.drees@cru.org>
 
 USER root
 
-# epel repo is prereq for some packages below
 RUN yum -y install \
-  epel-release
-
-RUN yum -y install \
+  # separate yum invocation required or epel dependent packages fail
+  epel-release \
+  && rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 \
+  && yum -y install \
   bind-utils \
   netcat \
   net-tools \
@@ -27,7 +27,7 @@ RUN yum -y install \
 ENV SYSLOG_VERSION=3.6.4
 ENV SYSLOG_DOWNLOAD_URL="https://github.com/balabit/syslog-ng/releases/download/syslog-ng-${SYSLOG_VERSION}/syslog-ng-${SYSLOG_VERSION}.tar.gz"
 
-RUN curl -L "${SYSLOG_DOWNLOAD_URL}" > "syslog-ng-${SYSLOG_VERSION}.tar.gz" \
+RUN curl --location "${SYSLOG_DOWNLOAD_URL}" > "syslog-ng-${SYSLOG_VERSION}.tar.gz" \
     && tar zxf "syslog-ng-${SYSLOG_VERSION}.tar.gz" \
     && cd "syslog-ng-${SYSLOG_VERSION}" \
     && ./configure --prefix=/usr \
@@ -39,10 +39,10 @@ RUN curl -L "${SYSLOG_DOWNLOAD_URL}" > "syslog-ng-${SYSLOG_VERSION}.tar.gz" \
 
 ENV SPLUNK_VERSION=6.2.2
 ENV SPLUNK_VERSION_FULL=$SPLUNK_VERSION-255606-linux-2.6-x86_64
+ENV SPLUNK_RPM_FILE=splunkforwarder-$SPLUNK_VERSION_FULL.rpm
+ENV SPLUNK_DOWNLOAD_URL="http://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=Linux&version=$SPLUNK_VERSION&product=universalforwarder&filename=$SPLUNK_RPM_FILE&wget=true"
 
-RUN SPLUNK_RPM_FILE=splunkforwarder-$SPLUNK_VERSION_FULL.rpm \
-    && wget -O $SPLUNK_RPM_FILE \
-        "http://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=Linux&version=$SPLUNK_VERSION&product=universalforwarder&filename=$SPLUNK_RPM_FILE&wget=true" \
+RUN curl --location "${SPLUNK_DOWNLOAD_URL}" > $SPLUNK_RPM_FILE \
     && rpm -i $SPLUNK_RPM_FILE \
     && rm $SPLUNK_RPM_FILE;
 

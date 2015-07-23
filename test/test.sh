@@ -5,6 +5,7 @@ echo "Host: $(hostname)";
 echo "IP: $(hostname -I)";
 
 TARGET=${1:-syslog.uscm.org}
+PORT=${2:-6010}
 
 echo "Target: $TARGET";
 
@@ -17,7 +18,7 @@ loggen \
   --interval 2 \
   --syslog-proto \
   $TARGET \
-  6010;
+  $PORT;
 
 echo "Testing UDP...";
 

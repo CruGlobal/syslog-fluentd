@@ -1,8 +1,6 @@
 #!/bin/bash
 
 
-
-# --env-file=work/development.txt \
 docker run \
  --interactive \
  --tty \

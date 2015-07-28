@@ -22,18 +22,9 @@ loggen \
   $TARGET \
   $PORT;
 
-echo "Testing UDP...";
-
-loggen \
-  --rate 5 \
-  --inet \
-  --dgram \
-  --size 150 \
-  --interval 2 \
-  --syslog-proto \
-  $TARGET \
-  514;
-
+# note: it's hard to test TCP multiline with logger,
+# because logger doesn't use the now-standard 'octet counting' method for TCP connections,
+# which our current syslog-ng config requires.
 echo "Testing UDP Multiline";
 
 logger --server $TARGET \

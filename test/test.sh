@@ -18,7 +18,7 @@ loggen \
   --interval 2 \
   --syslog-proto \
   --sdata '[exampleSDID@32473 iut="9" eventSource="rawr" eventID="123"]' \
-  --size 200 \
+  --size 250 \
   $TARGET \
   $PORT;
 

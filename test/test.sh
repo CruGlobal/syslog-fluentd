@@ -4,6 +4,12 @@ echo "Host: $(hostname)";
 
 echo "IP: $(hostname -I)";
 
+TARGET=${1:-syslog.uscm.org}
+PORT=${2:-6010}
+
+echo "Target: $TARGET";
+
+
 echo "Testing TCP...";
 loggen \
   --rate 5 \
@@ -11,28 +17,17 @@ loggen \
   --size 150 \
   --interval 2 \
   --syslog-proto \
-  internal-syslog-splunk-staging-1258904703.us-east-1.elb.amazonaws.com \
-  6010;
+  --sdata '[exampleSDID@32473 iut="9" eventSource="rawr" eventID="123"]' \
+  --size 200 \
+  $TARGET \
+  $PORT;
 
-echo "Testing UDP...";
-
-loggen \
-  --rate 5 \
-  --inet \
-  --dgram \
-  --size 150 \
-  --interval 2 \
-  --syslog-proto \
-  internal-syslog-splunk-staging-1258904703.us-east-1.elb.amazonaws.com \
-  514;
-
+# note: it's hard to test TCP multiline with logger,
+# because logger doesn't use the now-standard 'octet counting' method for TCP connections,
+# which our current syslog-ng config requires.
 echo "Testing UDP Multiline";
 
-logger --server internal-syslog-splunk-staging-1258904703.us-east-1.elb.amazonaws.com \
+logger --server $TARGET \
   --udp \
   $'hello\nworld\n\ttesting...\n\ttesting...';
-
-echo "Testing structured data";
-
-echo -n '<165>1 2011-02-04T20:06:00.000000+02:00 localhost structured-test - ID47 [exampleSDID@32473 iut="9" eventSource="rawr" eventID="123"] Message portion. Test log with structured data.' | nc -w 1 -u internal-syslog-splunk-staging-1258904703.us-east-1.elb.amazonaws.com 514
 

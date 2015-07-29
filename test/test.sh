@@ -17,7 +17,7 @@ loggen \
   --size 150 \
   --interval 2 \
   --syslog-proto \
-  --sdata '[exampleSDID@32473 iut="9" eventSource="rawr" eventID="123"]' \
+  --sdata '[exampleSDID@32473 iut="9" eventSource="syslog-splunk-tester" eventID="123"]' \
   --size 250 \
   $TARGET \
   $PORT;

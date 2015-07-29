@@ -9,6 +9,7 @@ RUN yum -y install \
   && rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7 \
   && yum -y install \
   bind-utils \
+  cronie \
   netcat \
   net-tools \
   nmap \
@@ -64,6 +65,7 @@ COPY inputs.conf /opt/splunkforwarder/etc/apps/search/local/inputs.conf
 
 COPY outputs.conf /opt/splunkforwarder/etc/system/local/outputs.conf
 
+COPY crontab /etc/cron.d/syslog-pruning
 
 EXPOSE 514/udp
 EXPOSE 601/tcp

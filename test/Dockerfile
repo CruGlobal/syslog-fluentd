@@ -1,4 +1,4 @@
-FROM syslog-splunk
+FROM cruglobal/syslog-splunk
 
 MAINTAINER Matt Drees <matt.drees@cru.org>
 

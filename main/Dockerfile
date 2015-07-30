@@ -58,6 +58,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY syslog-ng.conf /usr/etc/syslog-ng.conf
 
+COPY config_and_start_splunk.sh /opt/splunkforwarder/config_and_start_splunk.sh
+
 COPY inputs.conf /opt/splunkforwarder/etc/apps/search/local/inputs.conf
 
 COPY outputs.conf /opt/splunkforwarder/etc/system/local/outputs.conf

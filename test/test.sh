@@ -25,7 +25,7 @@ loggen \
 # note: it's hard to test TCP multiline with logger,
 # because logger doesn't use the now-standard 'octet counting' method for TCP connections,
 # which our current syslog-ng config requires.
-echo "Testing UDP Multiline";
+echo "Testing UDP Multiline...";
 
 logger --server $TARGET \
   --udp \

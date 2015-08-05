@@ -3,7 +3,6 @@
 
 docker run \
  --interactive \
- --tty \
  --rm \
  --link syslog-splunk-container:syslog \
  cruglobal/syslog-splunk-tester \

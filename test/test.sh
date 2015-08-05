@@ -11,7 +11,7 @@ echo "Target: $TARGET";
 
 
 echo "Testing TCP...";
-loggen \
+OUTPUT=$(loggen \
   --rate 5 \
   --inet \
   --size 150 \
@@ -20,7 +20,7 @@ loggen \
   --sdata '[exampleSDID@32473 iut="9" eventSource="syslog-splunk-tester" eventID="123"]' \
   --size 250 \
   $TARGET \
-  $PORT;
+  $PORT 2>&1);
 
 # note: it's hard to test TCP multiline with logger,
 # because logger doesn't use the now-standard 'octet counting' method for TCP connections,
@@ -31,3 +31,14 @@ logger --server $TARGET \
   --udp \
   $'hello\nworld\n\ttesting...\n\ttesting...';
 
+echo $OUTPUT | grep "count=15" > /dev/null
+FOUND=$?
+
+if [[ $FOUND == "0" ]]; then
+  echo "successfully sent messages"
+else
+  echo "test failed; loggen output:"
+  echo "$OUTPUT"
+fi
+
+exit $FOUND

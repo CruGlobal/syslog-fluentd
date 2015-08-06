@@ -1,5 +1,13 @@
 #!/usr/bin/ruby -w
 
+push = !ARGV.delete('--push').nil? || !ARGV.delete('-p').nil?
+
+unless ARGV.empty?
+  puts "Usage: build.rb [--push]"
+  puts "Builds this project, and pushes it to docker hub if --prune (or -p) argument is present"
+end
+
+
 def run(command, failure_message)
   puts command
   system command
@@ -54,5 +62,6 @@ build_number = ENV['BUILD_NUMBER'] || 0
 name = "cruglobal/syslog-splunk:#{git_commit}-#{build_number}"
 run "docker tag cruglobal/syslog-splunk #{name}", 'tag failed'
 
-
-run "docker push #{name}", 'push failed'
+if push
+  run "docker push #{name}", 'push failed'
+end

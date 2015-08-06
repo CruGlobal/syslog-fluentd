@@ -7,27 +7,29 @@ and forwards the messages on to a splunk server.
 Testing
 -------
 
-After making your changes, build and run the syslog-splunk container:
+After making your changes, build the project via:
 
 ```
-cd main;
-./build.sh;
-./run.sh;
+  build.rb
 ```
 
-Then in a separate console build the test container:
-
-```
-cd test;
-./build.sh;
-```
-
-and then run the tests against your local syslog-splunk container:
-
-```
-./run_test_against_ecs.sh;
-```
-
-Manually verify the test log messages show up in Splunk.
+This will build the syslog-splunk image and then build and run the tests.
+The tests currently only check that the syslog messages were accepted by the container.
+You will need to manually verify that the messages show up in Splunk.
 Search for "index=aws-ecs eventSource=syslog-splunk-tester",
 using the "Today" time option.
+
+
+Deployment
+----------
+
+The CI server runs
+
+```
+ build.rb --push
+```
+
+which will perform the build as described above (but without the manual checking in Splunk),
+and then will push the new syslog-splunk image to dockerhub.
+
+For now, this image must be manually deployed to ECS.

@@ -4,7 +4,7 @@ push = !ARGV.delete('--push').nil? || !ARGV.delete('-p').nil?
 
 unless ARGV.empty?
   puts "Usage: build.rb [--push]"
-  puts "Builds this project, and pushes it to docker hub if --prune (or -p) argument is present"
+  puts "Builds this project, and pushes it to docker hub if --push (or -p) argument is present"
 end
 
 

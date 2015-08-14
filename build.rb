@@ -5,6 +5,7 @@ push = ARGV.delete('--push') || ARGV.delete('-p')
 unless ARGV.empty?
   puts "Usage: build.rb [--push]"
   puts "Builds this project, and pushes it to docker hub if --push (or -p) argument is present"
+  exit 1
 end
 
 

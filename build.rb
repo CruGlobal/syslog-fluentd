@@ -1,6 +1,6 @@
 #!/usr/bin/ruby -w
 
-push = !ARGV.delete('--push').nil? || !ARGV.delete('-p').nil?
+push = ARGV.delete('--push') || ARGV.delete('-p')
 
 unless ARGV.empty?
   puts "Usage: build.rb [--push]"

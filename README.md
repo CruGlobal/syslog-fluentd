@@ -32,7 +32,7 @@ The CI server runs
 which will perform the build as described above (but without the manual checking in Splunk),
 and then will push the new syslog-splunk image to dockerhub.
 
-When a successful build on the add-build-script branch is performed,
+When a successful build on the master branch is performed,
 jenkins will automatically deploy the image to ECS staging.
 
 To deploy an image to production,

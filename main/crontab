@@ -13,3 +13,4 @@ MAILTO=root
 # |  |  |  |  |
 # *  *  *  *  * user-name  command to be executed
 0 0 * * * root find /var/log/syslog -type f -mtime +7 -exec rm {} \; >> /var/log/syslog-pruning.log 2>&1
+0 5 * * * root find /var/log/syslog -type f -mmin +5 -name "*.log" -exec gzip {} \; >> /var/log/syslog-compression.log 2>&1

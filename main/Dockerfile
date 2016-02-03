@@ -65,7 +65,10 @@ COPY inputs.conf /opt/splunkforwarder/etc/apps/search/local/inputs.conf
 
 COPY outputs.conf /opt/splunkforwarder/etc/system/local/outputs.conf
 
-COPY crontab /etc/cron.d/syslog-pruning
+COPY crontab /etc/cron.d/syslog-cleanup
+
+COPY compress_logs.sh /etc/cron.d/
+COPY prune_logs.sh /etc/cron.d/
 
 EXPOSE 514/udp
 EXPOSE 601/tcp

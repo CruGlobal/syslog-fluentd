@@ -13,4 +13,4 @@ MAILTO=root
 # |  |  |  |  |
 # *  *  *  *  * user-name  command to be executed
 0 0 * * * root /bin/prune_logs.sh
-0 5 * * * root /bin/compress_logs.sh
+5 0 * * * root /bin/compress_logs.sh

@@ -6,6 +6,6 @@ docker run \
  --interactive \
  --tty \
  --rm \
- cruglobal/syslog-splunk-tester \
+ 056154071827.dkr.ecr.us-east-1.amazonaws.com/syslog-splunk-tester \
  "$@"
 

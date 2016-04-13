@@ -17,5 +17,5 @@ exec docker run \
  --publish 601:601 \
  --publish 514:514/UDP \
  --name syslog-splunk-container \
- 056154071827.dkr.ecr.us-east-1.amazonaws.com/syslog-splunk \
+ cruglobal/syslog-splunk \
  "$@"

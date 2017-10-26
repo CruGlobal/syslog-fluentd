@@ -60,7 +60,7 @@ end
 git_commit = ENV['GIT_COMMIT'] || `git rev-parse --verify HEAD`.strip
 build_number = ENV['BUILD_NUMBER'] || 0
 
-name = "cruglobal/syslog-splunk:#{git_commit}-#{build_number}"
+name = "cruglobal/syslog-splunk:#{ENV['ENVIRONMENT']}-#{build_number}"
 run "docker tag cruglobal/syslog-splunk #{name}", 'tag failed'
 
 if push

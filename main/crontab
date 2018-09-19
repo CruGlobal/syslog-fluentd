@@ -14,4 +14,5 @@ MAILTO=root
 # *  *  *  *  * user-name  command to be executed
 #0 0 * * * root /bin/prune_logs.sh
 #5 0 * * * root /bin/compress_logs.sh
+# change to purge logs every hour - hour variable added to syslog-ng.conf 
 15 * * * * root find /var/log/syslog -type f -amin +15 -exec rm {} \; >> /var/log/syslog-pruning.log 2>&1

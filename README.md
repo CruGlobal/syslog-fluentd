@@ -1,4 +1,4 @@
-# syslog-splunk
+# syslog-fluentd
 
 
 This defines a docker container that listens to syslog messages on port 602/TCP,

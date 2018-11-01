@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sed -i 's/DD_APPLICATION_KEY/'$DD_APPLICATION_KEY'/g' /usr/etc/syslog-ng.conf
+sed -i 's/DD_APPLICATION_KEY/'$DD_APPLICATION_KEY'/g' /etc/td-agent/td-agent.conf
 
 sed -i 's/url/url https:\/\/'"$ES_ENDPOINT"'/g' /etc/td-agent/td-agent.conf
 

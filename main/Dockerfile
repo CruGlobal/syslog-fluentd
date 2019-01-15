@@ -1,4 +1,4 @@
-FROM balabit/syslog-ng:3.14.1
+FROM 056154071827.dkr.ecr.us-east-1.amazonaws.com/syslog-ng:latest
 MAINTAINER dpt <hart-ds-dpt@uscm.org>
 
 # fluentd

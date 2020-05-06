@@ -1,7 +1,6 @@
 FROM balabit/syslog-ng:3.14.1
 MAINTAINER dpt <hart-ds-dpt@uscm.org>
 
-# fluentd
 RUN apt-get update \
   && apt-get install --no-install-recommends --fix-missing -y -q \
   curl \

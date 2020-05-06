@@ -26,4 +26,5 @@ RUN crontab /etc/cron.d/syslog
 EXPOSE 602/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

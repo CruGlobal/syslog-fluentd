@@ -8,12 +8,8 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add - \
-  && echo "deb http://packages.treasuredata.com/2/debian/jessie/ jessie contrib" > /etc/apt/sources.list.d/treasure-data.list
-
 RUN apt-get update \
   && apt-get install --no-install-recommends --fix-missing -y -q \
-  td-agent \
   build-essential \
   supervisor \
   logrotate \
@@ -21,10 +17,6 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN  td-agent-gem install fluent-plugin-elasticsearch fluent-plugin-aws-elasticsearch-service \
- fluent-plugin-multi-format-parser fluent-plugin-record-reformer fluent-plugin-datadog
-
-COPY td-agent.conf /etc/td-agent/td-agent.conf
 COPY entrypoint.sh /entrypoint.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY syslog-ng.conf /usr/etc/syslog-ng.conf
